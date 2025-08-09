@@ -13,8 +13,8 @@ This is a simple calculator application implemented in Python. It provides basic
 ## Requirements
 
 - Python 3.6+
-- Redis server
-- redis-py library
+- Redis server 6.0+
+- redis-py library 4.5.5+
 
 ## Setup
 
