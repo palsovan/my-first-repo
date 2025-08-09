@@ -1,17 +1,47 @@
+import redis
+
 class Calculator:
-    def add(self, a, b):
+    def __init__(self, redis_host='localhost', redis_port=6379, redis_db=0):
+        self.redis_client = redis.Redis(host=redis_host, port=redis_port, db=redis_db)
+
+    def _cache_key(self, operation, a, b):
+        return f"calc:{operation}:{a}:{b}"
+
+    def _cached_operation(self, operation, a, b):
+        key = self._cache_key(operation, a, b)
+        cached_result = self.redis_client.get(key)
+        if cached_result is not None:
+            return float(cached_result)
+        
+        result = getattr(self, f"_{operation}")(a, b)
+        self.redis_client.set(key, str(result))
+        return result
+
+    def _add(self, a, b):
         return a + b
 
-    def subtract(self, a, b):
+    def _subtract(self, a, b):
         return a - b
 
-    def multiply(self, a, b):
+    def _multiply(self, a, b):
         return a * b
 
-    def divide(self, a, b):
+    def _divide(self, a, b):
         if b == 0:
             raise ValueError("Cannot divide by zero")
         return a / b
+
+    def add(self, a, b):
+        return self._cached_operation("add", a, b)
+
+    def subtract(self, a, b):
+        return self._cached_operation("subtract", a, b)
+
+    def multiply(self, a, b):
+        return self._cached_operation("multiply", a, b)
+
+    def divide(self, a, b):
+        return self._cached_operation("divide", a, b)
 
 if __name__ == "__main__":
     calc = Calculator()
@@ -30,19 +60,10 @@ if __name__ == "__main__":
         a = float(input("Enter first number: "))
         b = float(input("Enter second number: "))
         
-        if operation == 'add':
-            result = calc.add(a, b)
-        elif operation == 'subtract':
-            result = calc.subtract(a, b)
-        elif operation == 'multiply':
-            result = calc.multiply(a, b)
-        else:  # divide
-            try:
-                result = calc.divide(a, b)
-            except ValueError as e:
-                print(f"Error: {e}")
-                continue
-        
-        print(f"Result: {result}")
+        try:
+            result = getattr(calc, operation)(a, b)
+            print(f"Result: {result}")
+        except ValueError as e:
+            print(f"Error: {e}")
     
     print("Thank you for using the Calculator App!")
