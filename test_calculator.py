@@ -28,5 +28,11 @@ class TestCalculator(unittest.TestCase):
         with self.assertRaises(ValueError):
             self.calc.divide(5, 0)
 
+    def test_pounds_to_kg(self):
+        self.assertAlmostEqual(self.calc.pounds_to_kg(1), 0.45359237, places=8)
+        self.assertAlmostEqual(self.calc.pounds_to_kg(10), 4.5359237, places=7)
+        self.assertAlmostEqual(self.calc.pounds_to_kg(100), 45.359237, places=6)
+        self.assertEqual(self.calc.pounds_to_kg(0), 0)
+
 if __name__ == '__main__':
     unittest.main()
