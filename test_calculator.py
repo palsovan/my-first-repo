@@ -28,5 +28,13 @@ class TestCalculator(unittest.TestCase):
         with self.assertRaises(ValueError):
             self.calc.divide(5, 0)
 
+    def test_calculate_speed(self):
+        self.assertEqual(self.calc.calculate_speed(100, 2), 50)
+        self.assertEqual(self.calc.calculate_speed(200, 4), 50)
+        self.assertEqual(self.calc.calculate_speed(60, 1), 60)
+        
+        with self.assertRaises(ValueError):
+            self.calc.calculate_speed(100, 0)
+
 if __name__ == '__main__':
     unittest.main()
