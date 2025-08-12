@@ -28,5 +28,14 @@ class TestCalculator(unittest.TestCase):
         with self.assertRaises(ValueError):
             self.calc.divide(5, 0)
 
+    def test_calculate_rpm(self):
+        self.assertEqual(self.calc.calculate_rpm(60, 60), 60)  # 60 miles in 60 minutes = 60 RPM
+        self.assertEqual(self.calc.calculate_rpm(30, 60), 30)  # 30 miles in 60 minutes = 30 RPM
+        self.assertEqual(self.calc.calculate_rpm(120, 60), 120)  # 120 miles in 60 minutes = 120 RPM
+        self.assertAlmostEqual(self.calc.calculate_rpm(45, 30), 90, places=2)  # 45 miles in 30 minutes = 90 RPM
+
+        with self.assertRaises(ValueError):
+            self.calc.calculate_rpm(60, 0)  # Time cannot be zero
+
 if __name__ == '__main__':
     unittest.main()
