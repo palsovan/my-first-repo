@@ -1,6 +1,6 @@
 # Calculator App
 
-This is a simple calculator application implemented in Python. It provides basic arithmetic operations such as addition, subtraction, multiplication, and division.
+This is a simple calculator application implemented in Python. It provides basic arithmetic operations such as addition, subtraction, multiplication, and division, as well as an RPM (Revolutions Per Minute) calculator.
 
 ## Features
 
@@ -8,6 +8,7 @@ This is a simple calculator application implemented in Python. It provides basic
 - Subtraction
 - Multiplication
 - Division (with error handling for division by zero)
+- RPM calculation
 
 ## Usage
 
@@ -17,7 +18,9 @@ To use the calculator app, run the `calculator.py` script:
 python calculator.py
 ```
 
-Follow the on-screen prompts to perform calculations. Enter the operation you want to perform (add, subtract, multiply, or divide) and then enter the two numbers for the calculation.
+Follow the on-screen prompts to perform calculations. Enter the operation you want to perform (add, subtract, multiply, divide, or rpm) and then enter the required numbers for the calculation.
+
+For the RPM calculation, you'll be prompted to enter the distance traveled (in miles) and the time taken (in minutes).
 
 To exit the app, type 'quit' when prompted for an operation.
 

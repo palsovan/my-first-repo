@@ -28,5 +28,18 @@ class TestCalculator(unittest.TestCase):
         with self.assertRaises(ValueError):
             self.calc.divide(5, 0)
 
+    def test_calculate_rpm(self):
+        # Test normal case
+        self.assertAlmostEqual(self.calc.calculate_rpm(60, 60), 60.0)
+        self.assertAlmostEqual(self.calc.calculate_rpm(30, 45), 40.0)
+
+        # Test edge cases
+        self.assertAlmostEqual(self.calc.calculate_rpm(0, 60), 0.0)
+        self.assertAlmostEqual(self.calc.calculate_rpm(1, 1), 60.0)
+
+        # Test error case
+        with self.assertRaises(ValueError):
+            self.calc.calculate_rpm(60, 0)
+
 if __name__ == '__main__':
     unittest.main()
